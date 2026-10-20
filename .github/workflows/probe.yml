@@ -1,0 +1,55 @@
+# Milestone 0 probes (plan v2 §6). Manual only — never scheduled.
+# Polite by construction: one client, >= 25 s between requests, <= 10 requests, full stop on any refusal.
+name: probe
+on:
+  workflow_dispatch:
+    inputs:
+      probe:
+        description: "Which probe"
+        required: true
+        type: choice
+        options: [robots, schema, gtin, cnpj, radius, sugestao, store_anchor, cart_probe]
+      gtin:
+        description: "Optional GTIN (gtin / radius probes)"
+        required: false
+        default: ""
+      cnpj:
+        description: "Optional CNPJ (cnpj probe)"
+        required: false
+        default: ""
+concurrency: { group: source-requests, cancel-in-progress: false }
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.0
+      - name: Run probe
+        id: probe
+        working-directory: collector
+        env:
+          COLLECT_ENABLED: ${{ vars.COLLECT_ENABLED || 'true' }}
+          DELAY_S: "25"
+          MAX_REQUESTS: "10"
+          PROBE: ${{ inputs.probe }}
+          GTIN: ${{ inputs.gtin }}
+          CNPJ: ${{ inputs.cnpj }}
+        run: uv run noprecinho probe "$PROBE" --gtin "$GTIN" --cnpj "$CNPJ" --out ../probe-out
+      - name: Upload raw responses (3 days, never committed)
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: probe-${{ inputs.probe }}-${{ github.run_id }}
+          path: probe-out/
+          retention-days: 3
+          if-no-files-found: ignore
+      - name: Alert owner on block
+        if: always() && steps.probe.outputs.blocked == 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          REASON: ${{ steps.probe.outputs.reason }}
+        run: python3 tools/notify.py "⚠️ No Precinho probe bloqueado: $REASON"
