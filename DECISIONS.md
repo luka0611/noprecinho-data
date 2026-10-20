@@ -10,3 +10,7 @@ Append-only. Newest at the bottom. Format: date — decision — why.
 - 2026-10-20 — Normalization LLM: provider-agnostic OpenAI-compatible client; Gemini now, OpenRouter later (C1).
 - 2026-10-20 — Owner alerts via Telegram.
 - 2026-10-20 — Python package `noprecinho_collector`, CLI `noprecinho`.
+- 2026-10-20 — M0 geo check passed: the source answers GitHub-hosted (US) runners normally → collector stays in
+  GitHub Actions; no fallback host.
+- 2026-10-20 — `estabelecimento.telefone` exists in the payload; it is dropped at observation time (C14).
+- 2026-10-20 — Bot contact = repo URL only (owner: no e-mail for now).
