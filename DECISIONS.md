@@ -21,3 +21,7 @@ Append-only. Newest at the bottom. Format: date — decision — why.
 - 2026-10-20 — GTIN searches return each store's latest sale even if weeks old (seen up to ~55 days with horas=72).
   Owner: always show the **real age** of each price ("vendido há 12 dias"); > 72 h = grey + "antigo" (plan v2 §10.3–10.4).
   Ranking/optimizer keep the v2 staleness rules (72 h preferred, ≤ 7 days with penalty).
+- 2026-10-20 — Empty-termo search answered HTTP 202; the client stopped (treated as possible refusal). Empty searches are
+  now refused before sending. No more requests that day (cautious default); cart_probe first next session.
+- 2026-10-20 — Store identity comes from `estabelecimento.cnpj` in every line (even though the site UI doesn't show it).
+  Store-centric collection = search at the store's coordinates with raio=1 and filter by cnpj (owner idea; cart_probe tests it).

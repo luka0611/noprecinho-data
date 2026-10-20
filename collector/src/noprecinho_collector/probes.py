@@ -148,7 +148,7 @@ def probe_sugestao(p: Probe) -> None:
 
 
 def probe_store_anchor(p: Probe) -> None:
-    """Empty/minimal termo + store coordinates, radius 1, newest first: does it approximate store sampling?"""
+    """Minimal termo ("a") + store coordinates, radius 1, newest first: does it approximate store sampling?"""
     seed = p.seed()
     top = stores(seed).most_common(1)
     if not top:
@@ -156,7 +156,7 @@ def probe_store_anchor(p: Probe) -> None:
         return
     cnpj = top[0][0]
     lat, lng = store_coords(seed, cnpj) or PITUBA
-    for name, termo in (("anchor_empty_termo", ""), ("anchor_termo_a", "a")):
+    for name, termo in (("anchor_termo_a", "a"),):  # empty termo removed: HTTP 202 in M0
         r = p.search(name, termo=termo, lat=lat, lng=lng, raio_km=1, ordenar="data.desc")
         s = stores(r)
         share = (s.get(cnpj, 0) / len(r.rows)) if r.rows else 0

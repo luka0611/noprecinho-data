@@ -201,6 +201,9 @@ class PdhClient:
     ) -> SearchResult:
         if not isinstance(raio_km, int) or not 1 <= raio_km <= 30:
             raise ValueError("raio_km must be an integer 1..30")
+        if not (termo.strip() or gtin or cnpj):
+            # an empty search got HTTP 202 in M0 (2026-10-20); never send one
+            raise ValueError("search needs termo, gtin or cnpj")
         if self._csrf is None:
             self.open_session()
         form = {

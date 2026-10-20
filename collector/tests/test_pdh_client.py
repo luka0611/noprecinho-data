@@ -171,3 +171,9 @@ def test_robots_other_rules_allow(make_client, source):
                                              headers={"content-type": "text/plain"})
     with make_client() as c:
         assert c.check_robots().allowed
+
+
+def test_empty_search_is_refused_before_sending(make_client, source):
+    with make_client() as c, pytest.raises(ValueError):
+        c.search(termo="  ", **PITUBA)
+    assert source.calls == []
