@@ -20,7 +20,10 @@ _Updated 2026-10-20._
 | terms | footer references terms of use, but both PDFs are dead links → owner: continue + ask in LAI (`docs/source-terms.md`) |
 
 ## Next (Milestone 0 — plan v2 §6)
-- **Run `cart_probe` first** (normal text searches). If normal → the 202 was the empty term. Then optionally store_anchor ('a').
+- cart_probe run 39476483954 (2026-10-20 18:38 UTC): **connect timeout on the first request (robots.txt), twice** → no HTTP
+  response at all. Site down, or runner IP dropped (possible silent block after the 202). No more probes today; no re-run
+  from other IPs. Next: owner checks the site in a browser; if up, ONE cart_probe after ≥ 1 day.
+- Proposed (awaiting go-ahead): double connect timeout → Blocked("unreachable") → exit 2 + Telegram alert.
 - Store-centric idea (owner): search at the store's own coordinates, raio=1, keep lines whose `cnpj` matches — cart_probe measures this.
 - Write `docs/M0-report.md`: GO/SLOW-GO/NO-GO, chosen strategy. Likely direction: **GTIN-centric refresh** (one line per
   store per GTIN search) instead of CNPJ sampling; store_anchor decides whether a store-centric method exists (C2).
