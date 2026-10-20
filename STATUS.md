@@ -24,7 +24,9 @@ _Updated 2026-10-20._
   response at all. Site down, or runner IP dropped (possible silent block after the 202). No more probes today; no re-run
   from other IPs. Next: owner checks the site in a browser; if up, ONE cart_probe after ≥ 1 day.
 - Done (owner OK): double connect/network failure → Blocked("unreachable") → exit 2 + Telegram alert. 43 tests pass.
-- Owner (20 Oct, later): site opens fine in his browser → wait ≥ 1 day, then ONE cart_probe from Actions.
+- Owner (20 Oct, later): site opens fine in his browser.
+- **2026-10-20: Terms of Use found (`/condicoesdeusoetermos`): personal non-commercial use only, no copying or
+  redistribution → ALL collection from Preço da Hora PAUSED (no cart_probe). See docs/source-terms.md.**
 - Store-centric idea (owner): search at the store's own coordinates, raio=1, keep lines whose `cnpj` matches — cart_probe measures this.
 - Write `docs/M0-report.md`: GO/SLOW-GO/NO-GO, chosen strategy. Likely direction: **GTIN-centric refresh** (one line per
   store per GTIN search) instead of CNPJ sampling; store_anchor decides whether a store-centric method exists (C2).

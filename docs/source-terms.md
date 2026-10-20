@@ -21,10 +21,33 @@ forbid automated access or data reuse. If they do → NO-GO for scraping (plan v
 - Site footer of `https://precodahora.ba.gov.br/` in a normal browser.
 - Google Play listing → "Política de privacidade" link.
 
-## Current conclusion
+## Terms FOUND (2026-10-20, by the owner)
 
-Terms of use **exist by reference** (footer) but **cannot be read**: both PDFs are dead links. Nothing readable forbids
-automated access or reuse. Owner decision (20 Oct 2026): continue M0 at minimal volume (honest bot, ≥ 25 s spacing,
-stop on any refusal) and ask SEFAZ-BA for the terms text in the LAI request (question 5). If the terms, once obtained,
-forbid automated access → stop scraping and move to LAI/partnership + receipt scanning (C6).
-"® Todos os direitos reservados" concerns the site itself; prices are facts and not protected (plan v2 §16.1).
+`https://precodahora.ba.gov.br/condicoesdeusoetermos` (HTML page; the footer PDFs are still dead). Key clauses
+(paraphrased):
+
+| Clause | What it says |
+|---|---|
+| 3.1 | Use license is non-exclusive, limited, **personal and non-commercial only**. |
+| 3.3 | No right to copy or reproduce any part of the services. |
+| 3.7 | No distributing / modifying / selling / retransmitting any part of the services for any business, commercial **or public** purpose; no copying, selling, distributing or transferring content. |
+| 4.7 a(iii) | Forbids *disguising the origin* of public information transmitted to third parties (implies passing it on with the source named is contemplated). |
+| 4.9 c | No excessive load on the infrastructure. |
+| 6.1 | Content claimed as protected by copyright. |
+| 7.1 | No reproducing / copying / selling / exploiting any portion for commercial ends, nor using it to promote a company. |
+| 8.6 | Forum: Comarca de Salvador. |
+
+## Current conclusion (2026-10-20, replaces the earlier one)
+
+The terms, as written, **forbid our model** (automated copying + public redistribution in an app, with or without
+ads/donations). Plan rule (v2 §16.1, this file): terms forbid it → **stop scraping**. Status: **NO-GO for collecting
+from Preço da Hora without written permission from SEFAZ-BA.** No more probes. No price data was stored in git (probe
+artifacts expired after 3 days).
+
+Counter-arguments (for negotiating, NOT for ignoring the terms): prices are facts; Lei 9.610/98 art. 7 §2 says database
+protection does not cover the data themselves; LAI (Lei 12.527/2011) art. 8 §3 III asks transparency sites to allow
+automated access in open formats; clause 4.7 a(iii) itself contemplates passing public info on with attribution. A
+lawyer must confirm before relying on any of this.
+
+Paths that stay open: written authorization / data agreement / API from SEFAZ-BA (ask with attribution + polite-rate
+proposal); LAI request for the dataset; user-scanned receipts (C6); store flyers and store partnerships (B2B).
