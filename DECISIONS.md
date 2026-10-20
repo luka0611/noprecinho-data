@@ -14,3 +14,7 @@ Append-only. Newest at the bottom. Format: date — decision — why.
   GitHub Actions; no fallback host.
 - 2026-10-20 — `estabelecimento.telefone` exists in the payload; it is dropped at observation time (C14).
 - 2026-10-20 — Bot contact = repo URL only (owner: no e-mail for now).
+- 2026-10-20 — Source terms of use exist by reference (footer) but both PDFs are dead links. Owner chose: continue M0
+  at minimal volume and request the terms text via LAI (question 5). Details: docs/source-terms.md.
+- 2026-10-20 — `cnpj` form field returns 0 results (with and without termo) and the site UI has no store filter →
+  CNPJ store sampling does not work as v1 assumed. `gtin` field and GTIN-in-`termo` both work (same totals).
