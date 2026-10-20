@@ -25,3 +25,4 @@ Append-only. Newest at the bottom. Format: date — decision — why.
   now refused before sending. No more requests that day (cautious default); cart_probe first next session.
 - 2026-10-20 — Store identity comes from `estabelecimento.cnpj` in every line (even though the site UI doesn't show it).
   Store-centric collection = search at the store's coordinates with raio=1 and filter by cnpj (owner idea; cart_probe tests it).
+- 2026-10-20 — **C16:** Preço da Hora Terms of Use (personal, non-commercial; no copying/redistribution) → all collection paused until SEFAZ-BA authorizes in writing. Collector code kept, unused. See docs/source-terms.md.
