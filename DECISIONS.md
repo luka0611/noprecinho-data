@@ -18,3 +18,6 @@ Append-only. Newest at the bottom. Format: date — decision — why.
   at minimal volume and request the terms text via LAI (question 5). Details: docs/source-terms.md.
 - 2026-10-20 — `cnpj` form field returns 0 results (with and without termo) and the site UI has no store filter →
   CNPJ store sampling does not work as v1 assumed. `gtin` field and GTIN-in-`termo` both work (same totals).
+- 2026-10-20 — GTIN searches return each store's latest sale even if weeks old (seen up to ~55 days with horas=72).
+  Owner: always show the **real age** of each price ("vendido há 12 dias"); > 72 h = grey + "antigo" (plan v2 §10.3–10.4).
+  Ranking/optimizer keep the v2 staleness rules (72 h preferred, ≤ 7 days with penalty).
