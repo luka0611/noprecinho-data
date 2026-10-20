@@ -35,7 +35,7 @@ _CSRF_RE = re.compile(r'id="validate"\s+data-id="([^"]+)"')
 
 
 class Blocked(Exception):
-    """The source refused us (403/429/CAPTCHA/no CSRF/non-JSON/unknown codigo/robots). Stop the run."""
+    """The source refused us (403/429/CAPTCHA/no CSRF/non-JSON/unknown codigo/robots/unreachable). Stop the run."""
 
 
 class BudgetExhausted(Exception):
@@ -145,7 +145,8 @@ class PdhClient:
                     attempts += 1
                     self.clock.sleep(NETWORK_RETRY_WAIT_S)
                     continue
-                raise
+                # still unreachable after the one retry: may be a silent IP block (M0, 2026-10-20) -> stop + alert
+                raise Blocked(f"unreachable ({type(e).__name__}) on {method} {path}") from e
             self._last_request_at = self.clock.monotonic()
             ms = int((self._last_request_at - started) * 1000)
             self.log.append(RequestLog(method, path, params or {}, resp.status_code, ms))

@@ -177,3 +177,14 @@ def test_empty_search_is_refused_before_sending(make_client, source):
     with make_client() as c, pytest.raises(ValueError):
         c.search(termo="  ", **PITUBA)
     assert source.calls == []
+
+
+def test_unreachable_after_one_retry_is_blocked(make_client, source, clock):
+    def timeout(req: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectTimeout("timed out", request=req)
+
+    source.robots = timeout
+    with make_client() as c, pytest.raises(Blocked, match="unreachable"):
+        c.check_robots()
+    assert len(source.calls) == 2  # one retry, then stop
+    assert 60.0 in clock.sleeps
