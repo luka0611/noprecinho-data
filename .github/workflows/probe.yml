@@ -52,4 +52,5 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
           REASON: ${{ steps.probe.outputs.reason }}
-        run: python3 tools/notify.py "⚠️ No Precinho probe bloqueado: $REASON"
+        run: |
+          python3 tools/notify.py "⚠️ No Precinho probe bloqueado: $REASON"
