@@ -1,36 +1,40 @@
 # Status — noprecinho-data
 
-_Updated 2026-10-20._
+_Updated 2026-10-23._
+
+## Phase
+
+Milestone 0 closed: **NO-GO** for Preço da Hora (LAI 3355579 answered 23 Oct — no reuse, no automated access).
+Building the C16 data path: flyers (facts only) + user receipts + partner lists.
 
 ## Done
-- Repo created with README, DATA_NOTICE, DECISIONS, STATUS, LICENSE.
-- `collector/`: polite `pdh_client` (spacing, budget, robots C11, stop on any refusal), M0 probes, CLI `noprecinho probe`.
-- `probe.yml` (manual only) and `tests.yml` (41 tests, green in CI).
 
-## M0 probe results so far (2026-10-20, all from GitHub Actions, 0 refusals)
-| probe | result |
-|---|---|
-| robots | soft-404 (no robots.txt) → allowed |
-| schema / geo | OK from US runner → no fallback host; schema in `docs/source-schema.md` |
-| cnpj | **0 results** (cnpj alone and cnpj+termo); site UI has no store filter → CNPJ store sampling doesn't work |
-| gtin | GTIN in `termo` = GTIN in `gtin` field (same totals) |
-| radius (Coca-Cola 2L) | 2/10/30 km → 45/430/727 lines; page 1 = 25 lines from **25 distinct stores**; ages up to ~55 days despite horas=72 |
-| store_anchor | empty termo → **HTTP 202** → client stopped (no retry); 'a' variant not run. Empty searches now refused in code. |
-| sugestao | returns `{gtin, descricao, foto}` list → cheap GTIN discovery for the `discovery` job |
-| terms | footer references terms of use, but both PDFs are dead links → owner: continue + ask in LAI (`docs/source-terms.md`) |
+- Repo skeleton (README, DATA_NOTICE, DECISIONS, STATUS, MIT license), public per C13.
+- `collector/`: polite `pdh_client` (spacing, budget, robots, stop on any refusal), M0 probes, CLI `noprecinho probe`;
+  **43 tests** pass locally and in CI (`tests.yml`); `probe.yml` is manual-only.
+- M0 probes ran 20 Oct (≈30 requests, 0 normal-path refusals): robots soft-404, schema/geo OK from US runners,
+  gtin = termo, cnpj 0 results, radius 45/430/727 lines, sugestao returns GTINs; `store_anchor` got HTTP 202 and
+  `cart_probe` got connect timeouts (no HTTP responses) → stopped, no retries.
+- Terms of Use found → collection paused; LAI answered 23 Oct → M0 closed.
+- Docs: `docs/M0-report.md`, `docs/source-schema.md`, `docs/source-terms.md`, `docs/flyer-policy.md`,
+  `docs/receipt-quality.md`.
 
-## Next (Milestone 0 — plan v2 §6)
-- cart_probe run 39476483954 (2026-10-20 18:38 UTC): **connect timeout on the first request (robots.txt), twice** → no HTTP
-  response at all. Site down, or runner IP dropped (possible silent block after the 202). No more probes today; no re-run
-  from other IPs. Next: owner checks the site in a browser; if up, ONE cart_probe after ≥ 1 day.
-- Done (owner OK): double connect/network failure → Blocked("unreachable") → exit 2 + Telegram alert. 43 tests pass.
-- Owner (20 Oct, later): site opens fine in his browser.
-- **2026-10-20: Terms of Use found (`/condicoesdeusoetermos`): personal non-commercial use only, no copying or
-  redistribution → ALL collection from Preço da Hora PAUSED (no cart_probe). See docs/source-terms.md.**
-- Store-centric idea (owner): search at the store's own coordinates, raio=1, keep lines whose `cnpj` matches — cart_probe measures this.
-- Write `docs/M0-report.md`: GO/SLOW-GO/NO-GO, chosen strategy. Likely direction: **GTIN-centric refresh** (one line per
-  store per GTIN search) instead of CNPJ sampling; store_anchor decides whether a store-centric method exists (C2).
+## Now / next
 
-## Blockers / waiting on owner
-- LAI request (C10) — steps in `E:\FeiraCerta\LAI_REQUEST_STEPS.txt`; protocol number.
-- Manual check of terms in the official app / Play page (OWNER_TODO 8b).
+- `data.db` schema v1: observation rows with `source`, `tier`, `valid_until`, `status`, `confidence` (supersedes plan
+  v2 §9.3's single-row `price`).
+- Builder skeleton + normalizer (GTIN check digit, size/unit regex) + plausibility module (`receipt-quality.md` §4–§6).
+- Receipt intake contract (phone → Worker/D1 → publish job) and the first flyer end-to-end (extraction → `data.db` →
+  app).
+- Then the publish pipeline (`manifest.json` + `data.db.gz`) and the site.
+
+## Blocked / waiting on owner
+
+- **A first store flyer** — outreach per `E:\FeiraCerta\PERMISSION_AND_STORES.txt`; nothing real can be built without it.
+- Gemini API key (OWNER_TODO 4) for flyer extraction; Telegram bot (5) for alerts; Cloudflare account (6) for
+  intake/publish.
+- Screenshot of the in-app Terms (official app → Menu Principal → "Sobre o app").
+
+## Hard stop
+
+- No requests to `precodahora.ba.gov.br`, ever. The collector stays unused; no collection workflow exists.

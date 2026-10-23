@@ -51,3 +51,20 @@ lawyer must confirm before relying on any of this.
 
 Paths that stay open: written authorization / data agreement / API from SEFAZ-BA (ask with attribution + polite-rate
 proposal); LAI request for the dataset; user-scanned receipts (C6); store flyers and store partnerships (B2B).
+
+## LAI answer (2026-10-23) — final
+
+Protocol **3355579** (sent 20 Oct 2026) was answered on 23 Oct 2026, ahead of the ~9 Nov deadline. Summary of the
+official reply (quoted short; owner's name omitted, full text kept by the owner):
+
+| Question | Answer |
+|---|---|
+| Third-party reuse, including commercial? | "Não há previsão de reutilização por terceiros das informações divulgadas no site e no app. Elas são destinadas exclusivamente para o usuário final." |
+| Automated access at low frequency? | **"Não é permitido o acesso automatizado ao site."** |
+| Open database / official API? | "Não está prevista." |
+| Partnership contact? | Contacts go to SEFAZ, but "não há planos para converter o Preço da Hora Bahia em uma infraestrutura para provimento de outros serviços automatizados." |
+| Terms of Use text? | Available in the app, Menu Principal → "Sobre o app"; they acknowledged the broken website links and requested the fix. |
+
+Consequence: the NO-GO is confirmed **in writing** and without a rate limit to negotiate. No more requests to the
+source, no appeal (the questions were answered; an appeal does not grant a reuse license). See `M0-report.md`.
+The in-app Terms should still be screenshotted by the owner for the record.

@@ -26,3 +26,16 @@ Append-only. Newest at the bottom. Format: date — decision — why.
 - 2026-10-20 — Store identity comes from `estabelecimento.cnpj` in every line (even though the site UI doesn't show it).
   Store-centric collection = search at the store's coordinates with raio=1 and filter by cnpj (owner idea; cart_probe tests it).
 - 2026-10-20 — **C16:** Preço da Hora Terms of Use (personal, non-commercial; no copying/redistribution) → all collection paused until SEFAZ-BA authorizes in writing. Collector code kept, unused. See docs/source-terms.md.
+- 2026-10-23 — **M0 closed NO-GO.** LAI 3355579 answered: no third-party reuse, automated access not permitted, no
+  API/dataset planned. No further requests to the source; collector stays unused (MIT, documented); no appeal. Why:
+  the data owner refused in writing and plan §0.2/§16.1 treat a refusal as final (CP art. 154-A risk).
+- 2026-10-23 — **Flyer facts are used without prior permission** — product, size, price (CPF/CNPJ), validity, store —
+  but never images, artwork, layout or logo; permission is still requested for the weekly file, brand use and
+  partnerships; opt-out honored within 7 days. Why: art. 7º, XIII + §2º of Lei 9.610/98 excludes data themselves;
+  the remaining risk is expression and relationship, not the price. See docs/flyer-policy.md.
+- 2026-10-23 — **Receipts: QR-first, rewarded on accepted data only.** Rewards are zero-cost points/badges/early
+  access (no cash, no lottery); outliers are quarantined as UNCONFIRMED and confirmed by a second independent
+  receipt or a flyer match, never deleted. Why: data quality and anti-abuse; see docs/receipt-quality.md.
+- 2026-10-23 — **`data.db` will be observation-based** (source/tier/valid_until/status/confidence), replacing the
+  single-row `price` table of plan v2 §9.3. Why: with three sources a product/store can have several concurrent
+  prices, and the app must know how well each is supported.
